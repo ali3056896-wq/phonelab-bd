@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POCO X7 Pro — PhoneLab BD</title>
+<style>
+  body{font-family:monospace;font-size:13px;background:#111;color:#e0e0e0;padding:1rem;margin:0}
+  a.back{color:#c8f135;text-decoration:none;font-size:11px;display:inline-block;margin-bottom:1.2rem;letter-spacing:0.06em}
+  .title{font-size:17px;font-weight:700;margin-bottom:2px;color:#fff}
+  .sub{font-size:11px;color:#666;margin-bottom:1.4rem}
+  .sec-label{font-size:10px;font-weight:700;letter-spacing:0.1em;color:#888;text-transform:uppercase;margin-bottom:5px}
+  .section{margin-bottom:1.4rem}
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
+  th{font-size:10px;font-weight:700;padding:5px 8px;text-align:left;border-top:1px solid #2a2a2a;border-bottom:1px solid #2a2a2a}
+  td{font-size:11px;padding:5px 8px;vertical-align:top;border-bottom:0.5px solid #1e1e1e;line-height:1.7}
+  .th-good{color:#6dbf67;width:33%}.th-avg{color:#e0a832;width:33%}.th-bad{color:#e05252;width:34%}
+  .note{font-size:11px;margin-top:4px;padding:6px 8px;border-left:2px solid #2a2a2a;color:#888;line-height:1.5}
+  .badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;margin-right:5px}
+  .b-good{background:#0d2410;color:#6dbf67}
+  .b-avg{background:#261a04;color:#e0a832}
+  .b-bad{background:#260808;color:#e05252}
+  hr{border:none;border-top:1px solid #1e1e1e;margin:0 0 1.2rem}
+
+  /* KNOWN ISSUES BOX */
+  .issues-box{background:#1a0d0d;border:1px solid #3d1010;border-radius:6px;padding:12px 14px;margin-bottom:1.4rem}
+  .issues-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#e05252;margin-bottom:10px}
+  .issue-row{font-size:11px;margin-bottom:7px;padding-bottom:7px;border-bottom:1px solid #2a1010;line-height:1.6;color:#cc8888}
+  .issue-row:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .issue-tag{display:inline-block;font-size:9px;font-weight:700;padding:1px 6px;border-radius:2px;margin-right:6px;text-transform:uppercase;vertical-align:middle}
+  .it-persist{background:#3d1010;color:#e05252}
+  .it-sw{background:#261a04;color:#e0a832}
+  .it-hw{background:#0d2410;color:#6dbf67}
+
+  .glance{background:#161616;border-radius:6px;padding:12px 14px;margin-top:8px}
+  .glance-title{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#555;margin-bottom:10px}
+  .gl-row{font-size:12px;margin-bottom:5px;display:flex;gap:6px;align-items:baseline}
+  .gl-cat{color:#666;min-width:130px}
+  .gl-good{color:#6dbf67;font-weight:700}
+  .gl-avg{color:#e0a832;font-weight:700}
+  .gl-bad{color:#e05252;font-weight:700}
+  .verdict{background:#161616;border-radius:6px;padding:12px 14px;margin-top:8px}
+  .v-row{display:flex;gap:8px;font-size:11px;margin-bottom:4px;line-height:1.5}
+  .v-label{font-weight:700;min-width:52px;color:#fff}
+</style>
+</head>
+<body>
+
+<a class="back" href="../index.html">← Back to PhoneLab BD</a>
+<div class="title">POCO X7 Pro — ৳31,000 (Unofficial)</div>
+<div class="sub">Released: January 9, 2025 &nbsp;·&nbsp; Variant: 8GB/256GB</div>
+
+<!-- KNOWN ISSUES -->
+<div class="issues-box">
+  <div class="issues-title">⚠ Known Issues &amp; Persistent Bugs</div>
+
+  <div class="issue-row">
+    <span class="issue-tag it-persist">Persistent</span>
+    <strong style="color:#e0e0e0">Multitouch failure under gaming load</strong><br>
+    Touch response throttles after extended gaming — affects edge inputs badly. Reported widely on GSMArena. POCO pushed a keyboard layout hack instead of a real fix. Still present as of early 2026.
+  </div>
+
+  <div class="issue-row">
+    <span class="issue-tag it-persist">Persistent</span>
+    <strong style="color:#e0e0e0">Battery drain + overheating after HyperOS 3 update</strong><br>
+    Multiple users report standby drain of 10–15% overnight after updating. Overheating during camera use and benchmarks even outside gaming. Animation fix was pushed but battery drain persists.
+  </div>
+
+  <div class="issue-row">
+    <span class="issue-tag it-persist">Persistent</span>
+    <strong style="color:#e0e0e0">Lock screen freezing on wake</strong><br>
+    Phone freezes on lock screen in the morning requiring restart. Reported in long-term reviews and forums. No confirmed fix yet.
+  </div>
+
+  <div class="issue-row">
+    <span class="issue-tag it-sw">Software</span>
+    <strong style="color:#e0e0e0">Network signal drops — airplane mode workaround needed</strong><br>
+    Weak/slow network requires toggling airplane mode to restore signal. Reported on HyperOS 3. Affects both 4G and 5G.
+  </div>
+
+  <div class="issue-row">
+    <span class="issue-tag it-sw">Software</span>
+    <strong style="color:#e0e0e0">Speaker silence after HyperOS 3 update</strong><br>
+    Main speaker goes completely silent after HyperOS 3 update for some units. Reported multiple times on GSMArena. Xiaomi has not officially acknowledged.
+  </div>
+
+  <div class="issue-row">
+    <span class="issue-tag it-sw">Software</span>
+    <strong style="color:#e0e0e0">Aggressive RAM management despite 12GB</strong><br>
+    HyperOS kills background apps even with 12GB RAM. Long-term review confirms system acts too aggressively. Partially manageable via developer options.
+  </div>
+
+  <div class="issue-row">
+    <span class="issue-tag it-hw">Hardware</span>
+    <strong style="color:#e0e0e0">Plastic frame transfers heat unpleasantly</strong><br>
+    Under gaming or heavy use, plastic frame conducts heat to hands directly. Not a safety issue but uncomfortable for long sessions. No fix possible — hardware design.
+  </div>
+
+  <div class="issue-row">
+    <span class="issue-tag it-hw">Hardware</span>
+    <strong style="color:#e0e0e0">Front camera quality regression vs X6 Pro</strong><br>
+    Multiple X6 Pro owners report selfie quality downgrade on X7 Pro. Blurry, noisy low-light selfies and video. No software fix has resolved this.
+  </div>
+</div>
+
+<div class="section">
+  <div class="sec-label">OS & Software</div>
+  <table>
+    <tr><th class="th-good">Good</th><th class="th-avg">Average</th><th class="th-bad">Bad</th></tr>
+    <tr>
+      <td>HyperOS 2 (Android 15)<br>3 major OS updates promised<br>Debloatable — ads removable in 30min<br>WildBoost 3.0 gaming optimisation<br>Ultrasonic proximity sensor</td>
+      <td>Bootloader: Hard — Mi Unlock + 7 day wait<br>~13–15GB OS footprint<br>RAM management aggressive even on 12GB<br>Lock screen customisation limited</td>
+      <td>Ads + bloatware out of box<br>HyperOS 3 update introduced multiple bugs<br>Lock screen freeze bug — persistent<br>Speaker silence bug after update<br>Network drop bug on HyperOS 3<br>Only 3 OS updates — below Nord 4's 4<br>No microSD</td>
+    </tr>
+  </table>
+  <div class="note"><span class="badge b-bad">Bad</span>HyperOS 3 update broke several things — battery drain, speaker, network drops, lock screen freeze. All persistent as of early 2026. Debloating helps but you need 30min on first setup. Bootloader lock is annoying. If you buy this — stay on HyperOS 2 until bugs are patched.</div>
+</div>
+
+<hr>
+
+<div class="section">
+  <div class="sec-label">Display</div>
+  <table>
+    <tr><th class="th-good">Good</th><th class="th-avg">Average</th><th class="th-bad">Bad</th></tr>
+    <tr>
+      <td>6.67" 1.5K AMOLED 120Hz<br>446 PPI — very sharp<br>3000 nits peak<br>HDR10+ supported<br>1920Hz PWM dimming<br>GG7i protection<br>In-display fingerprint</td>
+      <td>Real brightness ~1000 nits typical<br>Notch cannot be properly hidden<br>Netflix notch display issue — confirmed</td>
+      <td>Touch throttle under gaming load — known bug<br>Edge multitouch fails after extended sessions</td>
+    </tr>
+  </table>
+  <div class="note"><span class="badge b-avg">Average</span>Display hardware is excellent — 3000 nits and GG7i at ৳31K is great. But the multitouch throttle bug under gaming load is a real problem for competitive gaming. Netflix notch issue is a minor annoyance. Overall a good display with a software-level gaming flaw.</div>
+</div>
+
+<hr>
+
+<div class="section">
+  <div class="sec-label">Battery & Charging</div>
+  <table>
+    <tr><th class="th-good">Good</th><th class="th-avg">Average</th><th class="th-bad">Bad</th></tr>
+    <tr>
+      <td>6000mAh Li-Po — largest in class<br>90W charging — 0–50% in ~15min<br>Full charge under 60min<br>Surge P2 + G1 chips for safe fast charging</td>
+      <td>Real SOT: 6–7hrs heavy use<br>~500 cycle lifespan<br>Charge 20–80% to extend</td>
+      <td>6000mAh only gives 6–7hr SOT — underperforms for size<br>HyperOS bugs drain battery in background<br>Standby drain 10–15% overnight after HyperOS 3<br>No wireless charging</td>
+    </tr>
+  </table>
+  <div class="note"><span class="badge b-avg">Average</span>6000mAh should give 8–9hr SOT but HyperOS bugs and powerful chip bring it down to 6–7hr. 90W charging partially saves it — 15min top-up gives 50%. Battery hardware is good but software optimization is letting it down. Stay on HyperOS 2 for better battery life.</div>
+</div>
+
+<hr>
+
+<div class="section">
+  <div class="sec-label">Performance + Thermal + Gaming + Storage</div>
+  <table>
+    <tr><th class="th-good">Good</th><th class="th-avg">Average</th><th class="th-bad">Bad</th></tr>
+    <tr>
+      <td>Dimensity 8400 Ultra (4nm)<br>~1,700,000 AnTuTu — near flagship<br>UFS 4.0 + LPDDR5X<br>POCO 3D IceLoop vapor system<br>COD: 120fps supported<br>BGMI: high settings smooth<br>App launch speed exceptional<br>Speed consistent after 6 months of use</td>
+      <td>Thermals: 44–45°C under sustained gaming<br>Performance drops after very long sessions<br>PUBG fps depends on game optimization not hardware<br>CPU throttles under extreme sustained stress</td>
+      <td>Multitouch throttles under gaming load — persistent bug<br>Plastic frame transfers heat directly to hands<br>Need external cooler for hardcore marathon gaming<br>HyperOS RAM kills background apps aggressively<br>Front camera quality worse than X6 Pro<br>No microSD</td>
+    </tr>
+  </table>
+  <div class="note"><span class="badge b-good">Good</span>1.7M AnTuTu + UFS 4.0 + vapor chamber at ৳31K is exceptional value on paper. Real-world performance is fast and consistent. But the multitouch bug is a genuine problem for competitive gaming — touch response degrades at screen edges under load. For casual to heavy gaming it's still the best chip at this price in BD. Nord 4 has better touch reliability but costs ৳2.5K more with a weaker chip.</div>
+</div>
+
+<hr>
+
+<div class="section">
+  <div class="sec-label">Camera</div>
+  <table>
+    <tr><th class="th-good">Good</th><th class="th-avg">Average</th><th class="th-bad">Bad</th></tr>
+    <tr>
+      <td>Main: 50MP OIS f/1.59<br>Sensor: Samsung ISOCELL GN9 1/1.56"<br>4K@30fps<br>OIS supported</td>
+      <td>Daylight: decent, slightly oversaturated<br>Low light: ok with night mode<br>HDR struggles in tricky lighting</td>
+      <td>Front camera: worse than X6 Pro — blurry, noisy<br>Oversharpening in processing<br>Video stabilisation weak<br>8MP ultrawide — small sensor, soft<br>No telephoto<br>Selfie darkens skin tones unnaturally</td>
+    </tr>
+  </table>
+  <div class="note"><span class="badge b-avg">Average</span>Main camera is acceptable for the price. But front camera is a step back from X6 Pro — reported by multiple X6 Pro upgraders. Not a camera phone — buy this for performance, not photos. Honor 200 has better camera hardware at ৳3.5K more (but broken video).</div>
+</div>
+
+<hr>
+
+<div class="section">
+  <div class="sec-label">Build</div>
+  <table>
+    <tr><th class="th-good">Good</th><th class="th-avg">Average</th><th class="th-bad">Bad</th></tr>
+    <tr>
+      <td>IP68 — fully waterproof up to 1.5m<br>GG7i front + back<br>Survives drops well per user reports<br>In-display ultrasonic fingerprint</td>
+      <td>Plastic frame — not metal<br>8.3mm — slightly thick<br>195g — average weight</td>
+      <td>Plastic frame transfers heat to hands during gaming<br>Back scratches easily despite GG7i<br>No alert slider<br>Slippery back</td>
+    </tr>
+  </table>
+  <div class="note"><span class="badge b-avg">Average</span>IP68 at ৳31K is great — beats Nord 4's IP65 at ৳33K. GG7i is solid. But plastic frame is a problem for gaming — it conducts heat directly to your hands after 30min+. Nord 4's metal unibody spreads heat far better. Build feels budget despite IP68.</div>
+</div>
+
+<hr>
+
+<div class="glance">
+  <div class="glance-title">At a glance</div>
+  <div class="gl-row"><span class="gl-cat">OS / Software</span><span class="gl-bad">Bad</span></div>
+  <div class="gl-row"><span class="gl-cat">Display</span><span class="gl-avg">Average</span></div>
+  <div class="gl-row"><span class="gl-cat">Battery</span><span class="gl-avg">Average</span></div>
+  <div class="gl-row"><span class="gl-cat">Performance</span><span class="gl-good">Good</span></div>
+  <div class="gl-row"><span class="gl-cat">Camera</span><span class="gl-avg">Average</span></div>
+  <div class="gl-row"><span class="gl-cat">Build</span><span class="gl-avg">Average</span></div>
+</div>
+
+<div class="verdict">
+  <div class="v-row"><span class="v-label">BUY</span><span>best raw chip + UFS 4.0 + vapor chamber under ৳35K in BD — IF you stay on HyperOS 2 and can tolerate the multitouch quirk</span></div>
+  <div class="v-row"><span class="v-label">SKIP</span><span>competitive gaming that needs precise edge touch — multitouch bug is real and unfixed. Also skip if you update OS blindly</span></div>
+  <div class="v-row"><span class="v-label">ALT</span><span>OnePlus Nord 4 ৳33K — better touch reliability, cleaner OS, metal build, worth ৳2K more<br>Moto Edge 60 Fusion ৳29.5K — cleaner OS, IP68+IP69, better daily driver</span></div>
+</div>
+
+</body>
+</html>
