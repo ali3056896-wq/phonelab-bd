@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoneLab BD — Honest Phone Reviews</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a;--surface:#111;--surface2:#161616;--border:#1e1e1e;--border2:#2a2a2a;
+  --accent:#c8f135;--accent-dim:rgba(200,241,53,0.1);--text:#e8e8e8;--muted:#555;--muted2:#888;
+  --good:#6dbf67;--avg:#e0a832;--bad:#e05252;
+  --good-bg:#0d2410;--avg-bg:#261a04;--bad-bg:#260808;
+  --mono:'Space Mono',monospace;--display:'Syne',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(200,241,53,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(200,241,53,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+
+header{position:relative;z-index:10;padding:2.5rem 2rem 2rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.logo{font-family:var(--display);font-weight:800;font-size:clamp(2rem,5vw,3rem);color:var(--accent);letter-spacing:-0.02em;line-height:1}
+.logo em{color:var(--text);font-style:normal}
+.logo sup{font-size:0.35em;color:var(--muted2);vertical-align:super;letter-spacing:0.1em}
+.tagline{font-size:10px;color:var(--muted);letter-spacing:0.18em;text-transform:uppercase;margin-top:6px}
+.hdr-right{display:flex;align-items:center;gap:10px}
+.stat-n{font-family:var(--display);font-weight:800;font-size:1.8rem;color:var(--accent);line-height:1;margin-right:4px}
+.stat-l{font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
+
+.btn-add{background:var(--accent);color:#0a0a0a;font-family:var(--mono);font-weight:700;font-size:11px;border:none;padding:10px 16px;border-radius:3px;cursor:pointer;letter-spacing:0.06em;text-transform:uppercase;transition:opacity 0.15s;display:flex;align-items:center;gap:6px}
+.btn-add:hover{opacity:0.85}
+.gear-btn{background:none;border:1px solid var(--border2);color:var(--muted);font-size:15px;width:36px;height:36px;border-radius:3px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
+.gear-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+.search-bar{position:relative;z-index:10;padding:1.2rem 2rem;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.search-input{background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:9px 14px;border-radius:3px;width:280px;max-width:100%;outline:none;transition:border-color 0.2s}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--muted)}
+.filters{display:flex;gap:6px;flex-wrap:wrap}
+.fbtn{background:var(--surface);border:1px solid var(--border2);color:var(--muted);font-family:var(--mono);font-size:10px;padding:7px 12px;border-radius:3px;cursor:pointer;transition:all 0.15s;text-transform:uppercase;letter-spacing:0.06em}
+.fbtn:hover,.fbtn.on{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+
+.count{position:relative;z-index:10;padding:0.7rem 2rem;font-size:10px;color:var(--muted);letter-spacing:0.06em;border-bottom:1px solid var(--border)}
+.count span{color:var(--accent)}
+
+.grid{position:relative;z-index:10;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1px;background:var(--border)}
+.empty{position:relative;z-index:10;padding:4rem 2rem;text-align:center;color:var(--muted);font-size:12px;display:none}
+
+.card{background:var(--bg);padding:1.4rem;cursor:pointer;text-decoration:none;display:block;position:relative;overflow:hidden;animation:fadeUp 0.3s ease both;transition:background 0.15s}
+.card:hover{background:var(--surface)}
+.card::after{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--accent);transition:height 0.2s}
+.card:hover::after{height:100%}
+.card-brand{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.14em;margin-bottom:3px}
+.card-name{font-family:var(--display);font-weight:600;font-size:1rem;color:var(--text);margin-bottom:6px;line-height:1.3}
+.card-price{font-size:11px;color:var(--accent);font-weight:700;margin-bottom:12px}
+.card-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.tag{font-size:9px;padding:3px 7px;border-radius:2px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em}
+.tg{background:var(--good-bg);color:var(--good)}.ta{background:var(--avg-bg);color:var(--avg)}.tb{background:var(--bad-bg);color:var(--bad)}
+.card-foot{font-size:11px;color:var(--muted2);border-top:1px solid var(--border);padding-top:10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.vpill{font-size:9px;font-weight:700;padding:3px 9px;border-radius:2px;text-transform:uppercase;letter-spacing:0.06em;flex-shrink:0}
+.vbuy{background:var(--good-bg);color:var(--good)}.vskip{background:var(--bad-bg);color:var(--bad)}.vconsider{background:var(--avg-bg);color:var(--avg)}
+.arr{color:var(--accent);opacity:0;transition:opacity 0.15s;font-size:14px}
+.card:hover .arr{opacity:1}
+
+footer{position:relative;z-index:10;padding:1.5rem 2rem;border-top:1px solid var(--border);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-top:1px}
+footer span{color:var(--accent)}
+
+/* OVERLAYS */
+.overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,0.88);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:1rem}
+.overlay.show{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:6px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.modal-head{padding:1.4rem 1.6rem 0;display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-family:var(--display);font-weight:700;font-size:1rem;color:var(--text)}
+.modal-close{background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;padding:4px 8px;line-height:1;transition:color 0.15s}
+.modal-close:hover{color:var(--text)}
+.modal-body{padding:1.4rem 1.6rem}
+
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:10px;color:var(--muted2);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;background:var(--bg);border:1px solid var(--border2);color:var(--text);font-family:var(--mono);font-size:12px;padding:9px 12px;border-radius:3px;outline:none;transition:border-color 0.2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent)}
+.field select option{background:var(--surface)}
+.field input[type="file"]{padding:7px 12px;color:var(--muted2)}
+
+.tag-row{display:flex;gap:6px;align-items:center;margin-bottom:6px}
+.tag-row input{flex:1}
+.tag-row select{width:90px;flex-shrink:0}
+.tag-row button{background:var(--bad-bg);border:1px solid var(--bad);color:var(--bad);font-family:var(--mono);font-size:11px;padding:8px 10px;border-radius:3px;cursor:pointer;flex-shrink:0}
+.btn-add-tag{background:none;border:1px dashed var(--border2);color:var(--muted);font-family:var(--mono);font-size:11px;padding:7px 12px;border-radius:3px;cursor:pointer;width:100%;transition:all 0.15s;text-align:left}
+.btn-add-tag:hover{border-color:var(--accent);color:var(--accent)}
+
+.btn-primary{background:var(--accent);color:#0a0a0a;font-family:var(--mono);font-weight:700;font-size:12px;border:none;padding:11px 20px;border-radius:3px;cursor:pointer;width:100%;letter-spacing:0.06em;text-transform:uppercase;transition:opacity 0.15s;margin-top:4px}
+.btn-primary:hover{opacity:0.85}
+.btn-primary:disabled{opacity:0.35;cursor:not-allowed}
+.btn-sec{background:none;border:1px solid var(--border2);color:var(--muted2);font-family:var(--mono);font-size:11px;padding:9px 16px;border-radius:3px;cursor:pointer;transition:all 0.15s}
+.btn-sec:hover{border-color:var(--muted2);color:var(--text)}
+.btn-row{display:flex;gap:8px;margin-top:1rem}
+.btn-row .btn-primary{width:auto;flex:1}
+
+.status{font-size:11px;padding:9px 12px;border-radius:3px;margin-top:10px;display:none;line-height:1.6}
+.status.ok{background:var(--good-bg);color:var(--good);display:block}
+.status.err{background:var(--bad-bg);color:var(--bad);display:block}
+.status.info{background:var(--accent-dim);color:var(--accent);display:block}
+
+.setup-note{font-size:11px;color:var(--muted2);line-height:1.8;margin-bottom:1.2rem;padding:10px 12px;border:1px solid var(--border2);border-radius:3px}
+.setup-note a{color:var(--accent);text-decoration:none}
+.setup-note a:hover{text-decoration:underline}
+.setup-note code{color:var(--accent);font-family:var(--mono)}
+
+.tabs{display:flex;border-bottom:1px solid var(--border2);margin-bottom:1.4rem}
+.tab{font-family:var(--mono);font-size:11px;color:var(--muted);padding:8px 16px;cursor:pointer;border:none;border-bottom:2px solid transparent;background:none;transition:all 0.15s;letter-spacing:0.04em}
+.tab.on{color:var(--accent);border-bottom-color:var(--accent)}
+.tab-panel{display:none}.tab-panel.on{display:block}
+
+.manage-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);gap:8px}
+.del-btn{background:var(--bad-bg);border:1px solid var(--bad);color:var(--bad);font-family:var(--mono);font-size:10px;padding:5px 10px;border-radius:3px;cursor:pointer}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){header{padding:1.5rem 1rem 1.2rem}.search-bar,.count{padding:1rem}.grid{grid-template-columns:1fr}footer{padding:1.2rem 1rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="logo">Phone<em>Lab</em><sup>BD</sup></div>
+    <div class="tagline">Honest specs · No marketing · Real verdict</div>
+  </div>
+  <div class="hdr-right">
+    <div style="text-align:right">
+      <span class="stat-n" id="totalCount">0</span>
+      <span class="stat-l">phones</span>
+    </div>
+    <button class="gear-btn" onclick="openSettings()" title="Settings">⚙</button>
+    <button class="btn-add" onclick="openAdmin()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg>
+      Add Phone
+    </button>
+  </div>
+</header>
+
+<div class="search-bar">
+  <input class="search-input" id="searchInput" type="text" placeholder="Search brand or model..." autocomplete="off">
+  <div class="filters">
+    <button class="fbtn on" data-f="all">All</button>
+    <button class="fbtn" data-f="buy">Buy</button>
+    <button class="fbtn" data-f="consider">Consider</button>
+    <button class="fbtn" data-f="skip">Skip</button>
+  </div>
+</div>
+<div class="count">Showing <span id="shownCount">0</span> of <span id="ofCount">0</span> phones</div>
+
+<div class="grid" id="grid"></div>
+<div class="empty" id="empty">No phones match your search.</div>
+
+<footer>
+  <div>PhoneLab <span>BD</span> — research-based. Prices are unofficial BD market rates.</div>
+  <div>Powered by <span>GitHub Pages</span></div>
+</footer>
+
+
+<!-- ═══════════ SETUP MODAL ═══════════ -->
+<div class="overlay" id="setupOverlay">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-head"><div class="modal-title">First Time Setup</div></div>
+    <div class="modal-body">
+      <div class="setup-note">
+        This site pushes reviews to GitHub directly from your browser.<br><br>
+        You need a <strong style="color:var(--text)">Personal Access Token</strong> with <code>repo</code> scope.<br><br>
+        Get one: <a href="https://github.com/settings/tokens" target="_blank">github.com → Settings → Developer Settings → Tokens (classic) → Generate new token</a><br><br>
+        Tick the <code>repo</code> checkbox. Copy the token. Paste below.
+      </div>
+      <div class="field"><label>GitHub Token (ghp_...)</label><input type="password" id="setupToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"></div>
+      <div class="field"><label>GitHub Username</label><input type="text" id="setupUser" placeholder="yourusername"></div>
+      <div class="field"><label>Repository Name</label><input type="text" id="setupRepo" placeholder="phonelab-bd"></div>
+      <div class="field"><label>Set Admin Password</label><input type="password" id="setupPass" placeholder="Choose a password"></div>
+      <div class="field"><label>Confirm Password</label><input type="password" id="setupPassConfirm" placeholder="Confirm password"></div>
+      <div id="setupStatus" class="status"></div>
+      <button class="btn-primary" onclick="saveSetup()">Save &amp; Continue</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ ADMIN MODAL ═══════════ -->
+<div class="overlay" id="adminOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">Admin Panel</div>
+      <button class="modal-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <div id="passGate">
+        <div class="field"><label>Admin Password</label><input type="password" id="adminPassInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkAdminPass()"></div>
+        <div id="passStatus" class="status"></div>
+        <div class="btn-row">
+          <button class="btn-sec" onclick="closeAdmin()">Cancel</button>
+          <button class="btn-primary" onclick="checkAdminPass()">Unlock</button>
+        </div>
+      </div>
+
+      <div id="adminContent" style="display:none">
+        <div class="tabs">
+          <button class="tab on" onclick="switchTab('upload')">Upload Phone</button>
+          <button class="tab" onclick="switchTab('manage')">Manage</button>
+        </div>
+
+        <div class="tab-panel on" id="tab-upload">
+          <div class="field"><label>Phone Name</label><input type="text" id="fName" placeholder="e.g. OnePlus Nord 4"></div>
+          <div class="field"><label>Price</label><input type="text" id="fPrice" placeholder="e.g. ৳33,500 (Unofficial)"></div>
+          <div class="field"><label>One-line Summary</label><input type="text" id="fSummary" placeholder="e.g. Best raw performance under ৳35K in BD"></div>
+          <div class="field"><label>Verdict</label>
+            <select id="fVerdict"><option value="buy">Buy</option><option value="consider">Consider</option><option value="skip">Skip</option></select>
+          </div>
+          <div class="field">
+            <label>Tags (up to 3)</label>
+            <div id="tagBuilder">
+              <div class="tag-row">
+                <input type="text" placeholder="e.g. UFS 4.0 ✓">
+                <select><option value="good">Good</option><option value="avg">Avg</option><option value="bad">Bad</option></select>
+                <button onclick="removeTag(this)">✕</button>
+              </div>
+            </div>
+            <button class="btn-add-tag" onclick="addTagRow()" style="margin-top:6px">+ Add tag</button>
+          </div>
+          <div class="field"><label>HTML Review File</label><input type="file" id="fFile" accept=".html"></div>
+          <div id="uploadStatus" class="status"></div>
+          <button class="btn-primary" id="uploadBtn" onclick="uploadPhone()">Upload to GitHub</button>
+        </div>
+
+        <div class="tab-panel" id="tab-manage">
+          <div id="manageList" style="font-size:12px;color:var(--muted2)">Loading...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════ SETTINGS MODAL ═══════════ -->
+<div class="overlay" id="settingsOverlay">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head">
+      <div class="modal-title">Settings</div>
+      <button class="modal-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="tabs">
+        <button class="tab on" onclick="switchSettingsTab('token')">GitHub Token</button>
+        <button class="tab" onclick="switchSettingsTab('password')">Change Password</button>
+      </div>
+
+      <div class="tab-panel on" id="stab-token">
+        <div class="field"><label>GitHub Token</label><input type="password" id="sToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"></div>
+        <div class="field"><label>GitHub Username</label><input type="text" id="sUser"></div>
+        <div class="field"><label>Repository Name</label><input type="text" id="sRepo"></div>
+        <div id="sTokenStatus" class="status"></div>
+        <button class="btn-primary" onclick="saveToken()">Save Token</button>
+      </div>
+
+      <div class="tab-panel" id="stab-password">
+        <div class="field"><label>Current Password</label><input type="password" id="sOldPass" placeholder="Current password"></div>
+        <div class="field"><label>New Password</label><input type="password" id="sNewPass" placeholder="New password"></div>
+        <div class="field"><label>Confirm New Password</label><input type="password" id="sConfPass" placeholder="Confirm new password"></div>
+        <div id="sPassStatus" class="status"></div>
+        <button class="btn-primary" onclick="changePassword()">Update Password</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+const $ = id => document.getElementById(id);
+const S = { get:k=>localStorage.getItem('plbd_'+k), set:(k,v)=>localStorage.setItem('plbd_'+k,v) };
+
+async function hash(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function slugify(n){ return n.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }
+function getBrand(n){
+  n=n.toLowerCase();
+  if(n.includes('poco')) return 'POCO';
+  if(n.includes('redmi')||n.includes('xiaomi')) return 'Xiaomi/Redmi';
+  if(n.includes('samsung')) return 'Samsung';
+  if(n.includes('oneplus')) return 'OnePlus';
+  if(n.includes('motorola')||n.includes('moto')) return 'Motorola';
+  if(n.includes('realme')) return 'Realme';
+  if(n.includes('nothing')) return 'Nothing';
+  if(n.includes('pixel')) return 'Google';
+  return 'Other';
+}
+function setStatus(id,msg,type){ const e=$(id); e.className='status '+type; e.textContent=msg; }
+
+// GitHub API
+async function gh(path,method='GET',body=null){
+  const token=S.get('token'), user=S.get('user'), repo=S.get('repo');
+  if(!token||!user||!repo) throw new Error('Not configured');
+  const res = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${path}`,{
+    method,
+    headers:{'Authorization':'token '+token,'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'},
+    ...(body&&{body:JSON.stringify(body)})
+  });
+  if(!res.ok){ const e=await res.json().catch(()=>({})); throw new Error(e.message||'GitHub error '+res.status); }
+  return method==='DELETE'?{}:res.json();
+}
+async function getSha(path){ try{ return (await gh(path)).sha; }catch{ return null; } }
+
+// Load phones
+let allPhones=[], curFilter='all';
+async function loadPhones(){
+  try{
+    const r = await fetch('phones.json?t='+Date.now());
+    allPhones = await r.json();
+    $('totalCount').textContent = allPhones.length;
+    renderCards(allPhones);
+  }catch{ $('grid').innerHTML='<div style="padding:2rem;color:#555;font-size:12px;grid-column:1/-1">Could not load phones.json</div>'; }
+}
+function renderCards(phones){
+  $('shownCount').textContent=phones.length; $('ofCount').textContent=allPhones.length;
+  if(!phones.length){ $('grid').innerHTML=''; $('empty').style.display='block'; return; }
+  $('empty').style.display='none';
+  $('grid').innerHTML=phones.map((p,i)=>{
+    const v=(p.verdict||'buy').toLowerCase();
+    const vc=v==='buy'?'vbuy':v==='skip'?'vskip':'vconsider';
+    const vt=v==='buy'?'Buy':v==='skip'?'Skip':'Consider';
+    const tags=(p.tags||[]).map(t=>`<span class="tag ${t.type==='good'?'tg':t.type==='bad'?'tb':'ta'}">${t.label}</span>`).join('');
+    return `<a class="card" href="${p.file}" style="animation-delay:${i*0.04}s">
+      <div class="card-brand">${getBrand(p.name)}</div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-price">${p.price}</div>
+      ${tags?`<div class="card-tags">${tags}</div>`:''}
+      <div class="card-foot"><span style="flex:1;margin-right:8px">${p.summary||''}</span><span class="vpill ${vc}">${vt}</span><span class="arr">→</span></div>
+    </a>`;
+  }).join('');
+}
+function filterSearch(){
+  const q=$('searchInput').value.toLowerCase().trim();
+  let f=allPhones;
+  if(curFilter!=='all') f=f.filter(p=>(p.verdict||'buy').toLowerCase()===curFilter);
+  if(q) f=f.filter(p=>p.name.toLowerCase().includes(q)||(p.summary||'').toLowerCase().includes(q)||getBrand(p.name).toLowerCase().includes(q));
+  renderCards(f);
+}
+$('searchInput').addEventListener('input',filterSearch);
+document.querySelectorAll('.fbtn').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on'); curFilter=btn.dataset.f; filterSearch();
+}));
+
+// Setup
+function checkSetup(){ if(!S.get('token')||!S.get('passHash')) $('setupOverlay').classList.add('show'); }
+async function saveSetup(){
+  const token=$('setupToken').value.trim(), user=$('setupUser').value.trim(), repo=$('setupRepo').value.trim();
+  const pass=$('setupPass').value, conf=$('setupPassConfirm').value;
+  if(!token||!user||!repo||!pass) return setStatus('setupStatus','All fields required','err');
+  if(pass!==conf) return setStatus('setupStatus','Passwords do not match','err');
+  setStatus('setupStatus','Verifying token...','info');
+  try{
+    const r=await fetch(`https://api.github.com/repos/${user}/${repo}`,{headers:{'Authorization':'token '+token}});
+    if(!r.ok) throw new Error('Repo not found or token invalid');
+    S.set('token',token); S.set('user',user); S.set('repo',repo); S.set('passHash',await hash(pass));
+    setStatus('setupStatus','Setup complete!','ok');
+    setTimeout(()=>{ $('setupOverlay').classList.remove('show'); $('adminOverlay').classList.add('show'); },800);
+  }catch(e){ setStatus('setupStatus',e.message,'err'); }
+}
+
+// Admin
+function openAdmin(){
+  if(!S.get('token')||!S.get('passHash')){ $('setupOverlay').classList.add('show'); return; }
+  $('adminOverlay').classList.add('show');
+}
+function closeAdmin(){
+  $('adminOverlay').classList.remove('show');
+  $('passGate').style.display='block'; $('adminContent').style.display='none';
+  $('adminPassInput').value=''; $('passStatus').className='status';
+}
+async function checkAdminPass(){
+  const input=$('adminPassInput').value; if(!input) return;
+  if(await hash(input)===S.get('passHash')){ $('passGate').style.display='none'; $('adminContent').style.display='block'; loadManageList(); }
+  else{ setStatus('passStatus','Wrong password','err'); $('adminPassInput').value=''; }
+}
+function switchTab(name){
+  document.querySelectorAll('#adminContent .tab').forEach((t,i)=>t.classList.toggle('on',['upload','manage'][i]===name));
+  document.querySelectorAll('#adminContent .tab-panel').forEach(p=>p.classList.remove('on'));
+  $('tab-'+name).classList.add('on');
+  if(name==='manage') loadManageList();
+}
+function addTagRow(){
+  const b=$('tagBuilder'); if(b.children.length>=3) return;
+  const r=document.createElement('div'); r.className='tag-row';
+  r.innerHTML=`<input type="text" placeholder="Tag label"><select><option value="good">Good</option><option value="avg">Avg</option><option value="bad">Bad</option></select><button onclick="removeTag(this)">✕</button>`;
+  b.appendChild(r);
+}
+function removeTag(btn){ const b=$('tagBuilder'); if(b.children.length>1) btn.closest('.tag-row').remove(); }
+
+async function uploadPhone(){
+  const name=$('fName').value.trim(), price=$('fPrice').value.trim();
+  const summary=$('fSummary').value.trim(), verdict=$('fVerdict').value;
+  const file=$('fFile').files[0];
+  if(!name||!price||!summary||!file) return setStatus('uploadStatus','Fill all fields and select a file','err');
+  const tags=Array.from($('tagBuilder').querySelectorAll('.tag-row')).map(r=>({label:r.querySelector('input').value.trim(),type:r.querySelector('select').value})).filter(t=>t.label);
+  const slug=slugify(name), filePath=`phones/${slug}.html`;
+  setStatus('uploadStatus','Uploading HTML...','info');
+  $('uploadBtn').disabled=true;
+  try{
+    const b64=await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(file); });
+    const existSha=await getSha(filePath);
+    await gh(filePath,'PUT',{message:`Add ${name} review`,content:b64,...(existSha&&{sha:existSha})});
+    setStatus('uploadStatus','HTML uploaded. Updating phones.json...','info');
+    const jf=await gh('phones.json');
+    const cur=JSON.parse(atob(jf.content.replace(/\n/g,'')));
+    const idx=cur.findIndex(p=>p.file===filePath);
+    const entry={name,price,file:filePath,verdict,summary,tags};
+    if(idx>=0) cur[idx]=entry; else cur.push(entry);
+    await gh('phones.json','PUT',{message:`Update phones.json — ${name}`,content:btoa(unescape(encodeURIComponent(JSON.stringify(cur,null,2)))),sha:jf.sha});
+    setStatus('uploadStatus','Done! Refreshing...','ok');
+    setTimeout(()=>{ closeAdmin(); loadPhones(); },1500);
+  }catch(e){ setStatus('uploadStatus','Error: '+e.message,'err'); $('uploadBtn').disabled=false; }
+}
+
+async function loadManageList(){
+  const el=$('manageList'); el.innerHTML='<span style="color:var(--muted)">Loading...</span>';
+  try{
+    const jf=await gh('phones.json');
+    const phones=JSON.parse(atob(jf.content.replace(/\n/g,'')));
+    if(!phones.length){ el.innerHTML='<span style="color:var(--muted)">No phones yet.</span>'; return; }
+    el.innerHTML=phones.map((p,i)=>`<div class="manage-row"><div><div style="color:var(--text);font-size:12px">${p.name}</div><div style="color:var(--muted);font-size:10px">${p.price}</div></div><button class="del-btn" onclick="deletePhone(${i},'${p.file}')">Delete</button></div>`).join('');
+  }catch(e){ el.innerHTML='<span style="color:var(--bad)">Error: '+e.message+'</span>'; }
+}
+async function deletePhone(idx,filePath){
+  if(!confirm('Delete this phone?')) return;
+  try{
+    const sha=await getSha(filePath);
+    if(sha) await gh(filePath,'DELETE',{message:'Remove '+filePath,sha});
+    const jf=await gh('phones.json');
+    const phones=JSON.parse(atob(jf.content.replace(/\n/g,'')));
+    phones.splice(idx,1);
+    await gh('phones.json','PUT',{message:'Update phones.json — delete entry',content:btoa(unescape(encodeURIComponent(JSON.stringify(phones,null,2)))),sha:jf.sha});
+    loadManageList(); loadPhones();
+  }catch(e){ alert('Error: '+e.message); }
+}
+
+// Settings
+function openSettings(){ $('sUser').value=S.get('user')||''; $('sRepo').value=S.get('repo')||''; $('settingsOverlay').classList.add('show'); }
+function closeSettings(){ $('settingsOverlay').classList.remove('show'); }
+function switchSettingsTab(name){
+  document.querySelectorAll('#settingsOverlay .tab').forEach((t,i)=>t.classList.toggle('on',['token','password'][i]===name));
+  document.querySelectorAll('#settingsOverlay .tab-panel').forEach(p=>p.classList.remove('on'));
+  $('stab-'+name).classList.add('on');
+}
+async function saveToken(){
+  const token=$('sToken').value.trim(), user=$('sUser').value.trim(), repo=$('sRepo').value.trim();
+  if(!token||!user||!repo) return setStatus('sTokenStatus','All fields required','err');
+  setStatus('sTokenStatus','Verifying...','info');
+  try{
+    const r=await fetch(`https://api.github.com/repos/${user}/${repo}`,{headers:{'Authorization':'token '+token}});
+    if(!r.ok) throw new Error('Invalid token or repo');
+    S.set('token',token); S.set('user',user); S.set('repo',repo);
+    setStatus('sTokenStatus','Saved!','ok');
+  }catch(e){ setStatus('sTokenStatus',e.message,'err'); }
+}
+async function changePassword(){
+  const oldP=$('sOldPass').value, newP=$('sNewPass').value, confP=$('sConfPass').value;
+  if(!oldP||!newP||!confP) return setStatus('sPassStatus','All fields required','err');
+  if(newP!==confP) return setStatus('sPassStatus','Passwords do not match','err');
+  if(await hash(oldP)!==S.get('passHash')) return setStatus('sPassStatus','Current password wrong','err');
+  S.set('passHash',await hash(newP));
+  setStatus('sPassStatus','Password updated!','ok');
+  $('sOldPass').value=''; $('sNewPass').value=''; $('sConfPass').value='';
+}
+
+// close on outside click
+['adminOverlay','settingsOverlay'].forEach(id=>$(id).addEventListener('click',e=>{ if(e.target===e.currentTarget){ if(id==='adminOverlay')closeAdmin(); else closeSettings(); } }));
+
+loadPhones();
+</script>
+</body>
+</html>
