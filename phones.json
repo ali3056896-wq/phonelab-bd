@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "name": "Redmi note 13 pro 5g",
+    "price": "28k",
+    "file": "phones/redmi-note-13-pro-5g.html",
+    "verdict": "skip",
+    "summary": "Good display and better charging",
+    "tags": []
+  }
+]
