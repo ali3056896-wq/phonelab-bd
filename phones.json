@@ -9,7 +9,7 @@
   },
   {
     "name": "Motorola 60 fusion",
-    "price": "ÃÂ ÃÂ§ÃÂ³.29,500 (Unofficial)",
+    "price": "ÃÂÃÂ ÃÂÃÂ§ÃÂÃÂ³.29,500 (Unofficial)",
     "file": "phones/motorola-60-fusion.html",
     "verdict": "consider",
     "summary": "Normal usage not for serious gaming",
@@ -17,7 +17,7 @@
   },
   {
     "name": "Honor 200",
-    "price": "Ã Â§Â³.34,500 (Unofficial)",
+    "price": "ÃÂ ÃÂ§ÃÂ³.34,500 (Unofficial)",
     "file": "phones/honor-200.html",
     "verdict": "skip",
     "summary": "Bad at this price point reported bug",
@@ -25,7 +25,7 @@
   },
   {
     "name": "Xiaomi Poco X7 Pro",
-    "price": "à§³31,000.00",
+    "price": "Ã Â§Â³31,000.00",
     "file": "phones/xiaomi-poco-x7-pro.html",
     "verdict": "skip",
     "summary": "Bad at this price point reported bug",
@@ -33,10 +33,18 @@
   },
   {
     "name": "One plus nord 4",
-    "price": "৳.33,500 (Unofficial)",
+    "price": "à§³.33,500 (Unofficial)",
     "file": "phones/one-plus-nord-4.html",
     "verdict": "buy",
     "summary": "Good overall for daily usage",
+    "tags": []
+  },
+  {
+    "name": "iQOO Z10 Turbo",
+    "price": "৳.33,500 (Unofficial)",
+    "file": "phones/iqoo-z10-turbo.html",
+    "verdict": "consider",
+    "summary": "Rom is issue overheat issue reported",
     "tags": []
   }
 ]
