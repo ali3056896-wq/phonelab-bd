@@ -9,10 +9,18 @@
   },
   {
     "name": "Motorola 60 fusion",
-    "price": "৳.29,500 (Unofficial)",
+    "price": "à§³.29,500 (Unofficial)",
     "file": "phones/motorola-60-fusion.html",
     "verdict": "consider",
     "summary": "Normal usage not for serious gaming",
+    "tags": []
+  },
+  {
+    "name": "Honor 200",
+    "price": "৳.34,500 (Unofficial)",
+    "file": "phones/honor-200.html",
+    "verdict": "skip",
+    "summary": "Bad at this price point reported bug",
     "tags": []
   }
 ]
